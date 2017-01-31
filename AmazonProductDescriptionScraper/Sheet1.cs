@@ -1,15 +1,5 @@
 ﻿using System;
-using System.IO;
-using System.Data;
-using System.Drawing;
-using System.Windows.Forms;
-using Microsoft.VisualStudio.Tools.Applications.Runtime;
-using Excel = Microsoft.Office.Interop.Excel;
-using Office = Microsoft.Office.Core;
-using Sgml;
-using Microsoft.Office.Interop.Excel;
-using System.Xml;
-using System.Net;
+using HtmlAgilityPack;
 
 namespace AmazonProductDescriptionScraper
 {
@@ -42,47 +32,36 @@ namespace AmazonProductDescriptionScraper
         private void button1_Click(object sender, EventArgs e)
         {
 
-            Range Current = Globals.Sheet1.Range["A1:A100"];
+            int i = 1;
 
-            foreach (Range r in Current)
+
+            while ( !(Cells[i, 1].value == null) && !(Cells[i, 1].value == "") )
             {
-                Globals.Sheet1.Cells[r.Row, 2].value = GetProductDescription(r.Value);
+                string Url = Cells[i, 1].value;
+                Globals.Sheet1.Cells[i, 2].value = GetProductDescription(Url);
+                i++;
             }
 
         }
 
         private String GetProductDescription(String Url)
         {
+            try
+            {
+                HtmlWeb web = new HtmlWeb();
+                HtmlAgilityPack.HtmlDocument AmazonHtml = web.Load(Url);
 
-            Sgml.SgmlReader sgmlReader = new Sgml.SgmlReader();
-            sgmlReader.DocType = "HTML";
-            sgmlReader.WhitespaceHandling = WhitespaceHandling.All;
-            sgmlReader.CaseFolding = Sgml.CaseFolding.ToLower;
+                HtmlNode div = AmazonHtml.DocumentNode.SelectSingleNode(@"//div[@id=""productDescription""]");
+               
+                string Description = div.SelectSingleNode("//p").InnerText;
 
-            sgmlReader.InputStream = FetchHtmlDoc(Url);
+                return Description;
 
-            XmlDocument doc = new XmlDocument();
-            doc.PreserveWhitespace = true;
-            doc.XmlResolver = null;
-            doc.Load(sgmlReader);
-
-            XmlNodeList Pnodes = doc.GetElementsByTagName("p");
-
-            String Description = Pnodes[0].InnerText;
-
-            return Description;
-
-        }
-
-        private TextReader FetchHtmlDoc(String Url)
-        {
-            WebRequest request = HttpWebRequest.Create(Url);
-            WebResponse response = request.GetResponse();
-
-            TextReader Html = new StreamReader(response.GetResponseStream());
-
-
-            return Html ;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
