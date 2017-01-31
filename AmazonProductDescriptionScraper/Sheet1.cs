@@ -1,9 +1,8 @@
-﻿using System;
-using HtmlAgilityPack;
-using
-using System.Xml;
+﻿using HtmlAgilityPack;
+using System;
 using System.IO;
 using System.Net;
+using System.Xml;
 
 namespace AmazonProductDescriptionScraper
 {
@@ -49,7 +48,7 @@ namespace AmazonProductDescriptionScraper
 
         }
 
-        private String GetProductDescription(String Url)
+        private String GetProductDescriptionByHtmlAgility(String Url)
         {
             try
             {
