@@ -22,6 +22,8 @@ namespace AmazonProductDescriptionScraper {
         
         internal Microsoft.Office.Tools.Excel.Controls.Button button1;
         
+        internal Microsoft.Office.Tools.Excel.Controls.Button button2;
+        
         /// 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
@@ -132,6 +134,7 @@ namespace AmazonProductDescriptionScraper {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void InitializeControls() {
             this.button1 = new Microsoft.Office.Tools.Excel.Controls.Button(Globals.Factory, this.ItemProvider, this.HostContext, "16DA8BB24196751412B19B061D6E75B93E8BB1", "16DA8BB24196751412B19B061D6E75B93E8BB1", this, "button1");
+            this.button2 = new Microsoft.Office.Tools.Excel.Controls.Button(Globals.Factory, this.ItemProvider, this.HostContext, "2639C409D2257A2402128381283ACF3871E102", "2639C409D2257A2402128381283ACF3871E102", this, "button2");
         }
         
         /// 
@@ -145,12 +148,21 @@ namespace AmazonProductDescriptionScraper {
             this.button1.BackColor = System.Drawing.SystemColors.Control;
             this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.button1.Name = "button1";
-            this.button1.Text = "商品の説明取得";
+            this.button1.Text = "商品の説明取得 HTML Agility";
             this.button1.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.SystemColors.Control;
+            this.button2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button2.Name = "button2";
+            this.button2.Text = "商品説明の取得 SGMLリーダー";
+            this.button2.UseVisualStyleBackColor = false;
             // 
             // Sheet1
             // 
             this.button1.BindingContext = this.BindingContext;
+            this.button2.BindingContext = this.BindingContext;
         }
         
         /// 
