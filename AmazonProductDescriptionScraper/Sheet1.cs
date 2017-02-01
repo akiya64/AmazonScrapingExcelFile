@@ -42,7 +42,7 @@ namespace AmazonProductDescriptionScraper
             while ( !(Cells[i, 1].value == null) && !(Cells[i, 1].value == "") )
             {
                 string Url = Cells[i, 1].value;
-                Globals.Sheet1.Cells[i, 2].value = GetProductDescription(Url);
+                Globals.Sheet1.Cells[i, 2].value = GetProductDescriptionByHtmlAgility(Url);
                 i++;
             }
 
@@ -57,7 +57,7 @@ namespace AmazonProductDescriptionScraper
 
                 HtmlNode div = AmazonHtml.DocumentNode.SelectSingleNode(@"//div[@id=""productDescription""]");
                
-                string Description = div.SelectSingleNode("//p").InnerText;
+                string Description = div.SelectSingleNode("p").InnerText;
 
                 return Description;
 
